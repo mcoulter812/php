@@ -1,15 +1,48 @@
 <?php
 include 'header.php';
+
 ?>
 <body>
 <h2>Games</h2>
 <p>I'm a pc gamer. I also have an xbox. #PcBruh</p>
 <h3>Favourite Games</h3>
-		<ol>
-			<li>Halo 3</li>
-			<li>Skyrim</li>
-			<li>Destiny</li>
-	 	</ol>
+		<table>
+      <tr>
+        <td>
+        Name
+        </td>
+        <td>
+        Age Rating
+        </td>
+        <td>
+        Steam Search
+        </td>
+        <td>
+        Amazon Search
+        </td>
+         </tr>
+         <?php
+        include 'connection.php';
+        $sql="SELECT * FROM games";
+        $result=$conn->query($sql);
+
+        if ($result->num_rows>0) {
+            while($row=$result->fetch_assoc()) {
+                echo "<tr>
+                <td>".$row["Name"]."</td>
+                <td>".$row["Age"]."</td>
+                <td>
+                    <a href='http://store.steampowered.com/search/?term=".$row["Name"]."'>Go</a>
+                </td>
+                <td>
+                    <a href='https://www.amazon.co.uk/s/?url=search-alias%3Daps&field-keywords=".$row["Name"]."'>Go</a>
+                </td>
+                </tr>";
+            }
+        }
+         ?>
+           
+        </table>
         <form>
         <p>Enter the 1st number</p>
         <input type="textbox" name="first">
